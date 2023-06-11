@@ -1,0 +1,20 @@
+body {
+  background-color: rgb(61, 62, 60);
+  color: rgb(255, 253, 253);
+  padding: 20px;
+  font-family: Arial, Verdana, sans-serif;
+}
+h1 {
+  background-color: hsl(220, 88%, 73%);
+  font-family: arial rgb(255, 252, 252);
+  text-align: center;
+}
+h2 {
+  font-family: arial rgb(255, 252, 252);
+  text-align: left;
+}
+p,
+li {
+  font-family: arial rgb(255, 252, 252);
+  text-align: left;
+}

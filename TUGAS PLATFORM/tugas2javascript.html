@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form Pilihan</title>
+</head>
+
+<body>
+    <h1>Form Pilihan</h1>
+
+    <div id="inputNama">
+        Nama : <input type="text" id="namaInput" /><br /><br />
+        Jumlah Pilihan : <input type="number" id="jumlahInput" /><br /><br />
+        <button onclick="tampilkanInputPilihan()">OK</button>
+    </div>
+
+    <div id="inputPilihan" style="display: none">
+        <h2>Masukkan Teks Pilihan:</h2>
+    </div>
+
+    <div id="tampilanPilihan" style="display: none">
+        <h2>Pilihan:</h2>
+    </div>
+
+    <div id="hasil" style="display: none">
+        <h2>Hasil:</h2>
+    </div>
+
+    <script>
+        function tampilkanInputPilihan() {
+            var nama = document.getElementById("namaInput").value;
+            var jumlah = parseInt(document.getElementById("jumlahInput").value);
+
+            if (nama === "" || isNaN(jumlah) || jumlah <= 0) {
+                alert("Harap isi nama dan jumlah pilihan dengan benar.");
+                return;
+            }
+
+            var inputPilihanDiv = document.getElementById("inputPilihan");
+            inputPilihanDiv.innerHTML = "<h2>Masukkan Teks Pilihan:</h2>";
+
+            for (var i = 1; i <= jumlah; i++) {
+                var inputElement = document.createElement("input");
+                inputElement.type = "text";
+                inputElement.placeholder = "Teks Pilihan " + i;
+                inputPilihanDiv.appendChild(document.createTextNode("Pilihan " + i + " : "));
+                inputPilihanDiv.appendChild(inputElement);
+                inputPilihanDiv.appendChild(document.createElement("br"));
+            }
+
+            inputPilihanDiv.innerHTML += "<br><button onclick='tampilkanPilihan()'>OK</button>";
+            inputPilihanDiv.style.display = "block";
+
+            document.getElementById("inputNama").style.display = "none";
+        }
+
+        function tampilkanPilihan() {
+            var pilihanDiv = document.getElementById("tampilanPilihan");
+            pilihanDiv.innerHTML = "<h2>Pilihan:</h2>";
+
+            var pilihanRadio = document.createElement("div");
+
+            var inputPilihan = document.getElementById("inputPilihan").getElementsByTagName("input");
+            for (var i = 0; i < inputPilihan.length; i++) {
+                var radioElement = document.createElement("input");
+                radioElement.type = "radio";
+                radioElement.name = "pilihanRadio";
+                radioElement.value = inputPilihan[i].value;
+
+                var labelElement = document.createElement("label");
+                labelElement.innerHTML = inputPilihan[i].value;
+
+                pilihanRadio.appendChild(radioElement);
+                pilihanRadio.appendChild(labelElement);
+                pilihanRadio.appendChild(document.createElement("br"));
+            }
+
+            pilihanDiv.appendChild(pilihanRadio);
+            pilihanDiv.innerHTML += "<br><button onclick='tampilkanHasil()'>OK</button>";
+            pilihanDiv.style.display = "block";
+
+            document.getElementById("inputPilihan").style.display = "none";
+        }
+
+        function tampilkanHasil() {
+            var nama = document.getElementById("namaInput").value;
+            var jumlah = parseInt(document.getElementById("jumlahInput").value);
+            var pilihan = document.querySelector('input[name="pilihanRadio"]:checked').value;
+
+            var hasilDiv = document.getElementById("hasil");
+            hasilDiv.innerHTML = "<h2>Hasil:</h2>";
+            hasilDiv.innerHTML += "Hallo, nama saya " + nama + ", saya memiliki sejumlah " + jumlah +
+                " pilihan, yaitu ";
+            var inputPilihan = document.getElementById("inputPilihan").getElementsByTagName("input");
+            for (var i = 0; i < inputPilihan.length; i++) {
+                hasilDiv.innerHTML += inputPilihan[i].value;
+                if (i < inputPilihan.length - 1) {
+                    hasilDiv.innerHTML += ", ";
+                }
+            }
+            hasilDiv.innerHTML += " dan saya memilih " + pilihan + ".";
+
+            hasilDiv.style.display = "block";
+
+            document.getElementById("tampilanPilihan").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
